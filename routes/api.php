@@ -68,3 +68,4 @@ Route::middleware('auth:sanctum')->post('/logout', function(Request $request){
     return response()->json(['message' => 'Successfully logged out']);
 });
 
+
