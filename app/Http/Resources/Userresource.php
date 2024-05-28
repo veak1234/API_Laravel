@@ -8,6 +8,7 @@ use App\Models\Post;
 
 class Userresource extends JsonResource
 {
+    
     /**
      * Transform the resource into an array.
      *
