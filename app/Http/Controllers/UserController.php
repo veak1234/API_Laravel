@@ -62,9 +62,6 @@ class UserController extends Controller
         $users = User::find($id);
         $users->delete();
         return new UserResource($users);
-        // $post = Post::find($id);
-        // $post->delete();
-        // return new PostResource($post);
     }
 }
 
