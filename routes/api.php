@@ -57,7 +57,7 @@ Route::post('/login', function (Request $request){
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
         $token = $user->createToken('MyApp')->plainTextToken;
-        return response()->json(['Login'=> $credentials,'massage' => 'login is successfully'], 200);
+        return response()->json(['Login'=> $token,'massage' => 'login is successfully'], 200);
     } else {
         return response()->json(['error'=>'Unauthorised'], 400);
     }
@@ -65,6 +65,7 @@ Route::post('/login', function (Request $request){
 
 Route::middleware('auth:sanctum')->post('/logout', function(Request $request){
     $request->user()->tokens()->delete();
+    auth()->guard('web')->logout();
     return response()->json(['message' => 'Successfully logged out']);
 });
 
