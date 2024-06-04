@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
             //
             'title'=>'sometimes|required|string|max:255',
             'description'=>'sometimes|required|string',
-            'user_id'=>'sometimes|required'
+            'user_id' => 'sometimes|required|integer'
         ];
     }
 }

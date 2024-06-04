@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+// use App\Models\User;
 
 
 return new class extends Migration
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->foreignID('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignID('user_id')->references('id')->on('user')->onDelete('cascade');
             $table->timestamps();
         });
     }

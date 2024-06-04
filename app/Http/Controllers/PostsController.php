@@ -16,7 +16,8 @@ class PostsController extends Controller
     {
         //
         $post = Posts::all();
-        return Postresource::collection($post);
+        $post = Postresource::collection($post);
+        return response()->json(['data' => $post, 'massage' => 'required is successfully']);
     }
 
     /**
@@ -25,8 +26,9 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         //
-        $post = Posts::create($request->validated());
-        return new PostResource($post);
+        $post = Posts::create($request->all());
+        $post =  new PostResource($post);
+        return response()->json(['massage' => 'You are create user successfully'], 200);
     }
 
     /**
