@@ -4,11 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Post;
+// use App\Models\Post;
 
-class Userresource extends JsonResource
+class UserResource extends JsonResource
 {
-    
     /**
      * Transform the resource into an array.
      *
@@ -21,9 +20,11 @@ class Userresource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
+            // 'email_verified_at' => $this->email_verified_at,
+            // 'password_reset_token' => $this->password_reset_token,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'createdPost' => Post::where('user_id', $this->id)->get()
+            // 'createdPost' => Post::where('user_id', $this->id)->get()
         ];
     }
 }

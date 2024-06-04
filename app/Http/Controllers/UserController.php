@@ -2,66 +2,49 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Controllers\User;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 
 class UserController extends Controller
 {
     //
-        /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // Get the resource of data
-        $Users = UserResource::collection(User::all());
-        return response()->json(['data'=> $Users,'massage' => 'Request is successfully'], 200);
-
+    public function index(){
+        //
+        $users = User::all();
+        return UserResource::collection($users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(UserRequest $request)
-    {
-        // create a new resource
-        $users = User::create($request->validated());
-        return new UserResource($users);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        // 
-        // return new PostResource($post);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UserRequest $request, string|int $id)
+    public function store(Request $request)
     {
         //
-        $users = User::find($id);
-        $users->update($request->validated());
-        return new UserResource($users);
-
+        $user = User::create($request->all());
+        $user =  new UserResource($user);
+        return response()->json(['massage' => 'You are create user successfully'], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(UserRequest $post, string|int $id)
+    public function show($id){
+        //
+        $user = User::findOrFail($id);
+        return new UserResource($user);
+    }
+
+    public function update(UserRequest $request, User $user, string|int $id)
     {
         //
-        $users = User::find($id);
-        $users->delete();
-        return new UserResource($users);
+        $user = User::find($id);
+        $user->update($request->validated());
+        $user = new UserResource($user);
+        return response()->json(['massage' => 'You are update successfully'], 200);
+    }
+
+
+    public function destroy(string|int $id){
+        //
+        $user = User::find($id);
+        $user->delete();
+        $user = new UserResource($user);
+        return response()->json(['massage' => 'You are delete successfully'], 200);
     }
 }
-
