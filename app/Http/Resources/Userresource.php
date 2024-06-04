@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             // 'password_reset_token' => $this->password_reset_token,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'createdPost' => Post::where('user_id', $this->id)->get()
+            // 'createdPost' => Post::where('user_id', $this->id)->get()
         ];
     }
 }
