@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Posts;
+use App\Models\Comments;
 
 class UserResource extends JsonResource
 {
@@ -24,7 +25,7 @@ class UserResource extends JsonResource
             'password_reset_token' => $this->password_reset_token,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'createdPost' => Posts::where('user_id', $this->id)->get()
+            'createdPost' => Posts::where('user_id', $this->id)->get(),
         ];
     }
 }

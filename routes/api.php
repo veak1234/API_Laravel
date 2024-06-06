@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostsController;
-// use App\Http\Resources\UserResource;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,9 +29,13 @@ Route::post('/user/create', [UserController::class, 'store']);
 Route::put('/user/update/{id}', [UserController::class, 'update']);
 Route::delete('/user/delete/{id}', [UserController::class, 'destroy']);
 
-
-
 Route::get('/post/list', [PostsController::class, 'index']);
 Route::post('/post/create', [PostsController::class, 'store']);
-// Route::put('/post/update', [PostsController::class, 'update']);
-// Route::delete('/post/delete', [PostsController::class, 'destroy']);
+Route::put('/post/update', [PostsController::class, 'update']);
+Route::delete('/post/delete', [PostsController::class, 'destroy']);
+
+Route::get('/comment/list',[CommentController::class, 'index']);
+Route::post('/comment/create',[CommentController::class, 'store']);
+
+Route::get('/like/list',[LikeController::class, 'index']);
+Route::post('/like/create',[LikeController::class, 'store']);

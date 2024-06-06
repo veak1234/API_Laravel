@@ -37,21 +37,31 @@ class PostsController extends Controller
     public function show(Posts $posts)
     {
         //
+        $post = Posts::findOrFail($posts);
+        return new PostResource($post);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Posts $posts)
+    public function update(PostRequest $request, Posts $posts, string|int $id)
     {
         //
+        $post = Posts::find($id);
+        $post->update($request->validated());
+        $post = new PostResource($post);
+        return response()->json(['massage' => 'You are update successfully'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Posts $posts)
+    public function destroy(Posts $posts, string|int $id)
     {
         //
+        $post = Posts::find($id);
+        $post->delete();
+        $post = new PostResource($post);
+        return response()->json(['massage' => 'You are delete successfully'], 200);
     }
 }
