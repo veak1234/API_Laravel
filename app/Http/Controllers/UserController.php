@@ -2,69 +2,43 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Controllers\User;
-use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
+use App\Models\User;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\UserRequest;
+
 
 class UserController extends Controller
 {
     //
-        /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // Get the resource of data
-        $Users = UserResource::collection(User::all());
-        return response()->json(['data'=> $Users,'massage' => 'Request is successfully'], 200);
-
+    public function index(){
+        
+        $users = User::all();
+        $users = UserResource::collection($users);
+        return response()->json(['data' => $users, 'message' =>'request is successfully']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(UserRequest $request)
-    {
-        // create a new resource
-        $users = User::create($request->validated());
-        return new UserResource($users);
+    public function store(UserRequest $request){
+        $user = User::create($request->all());
+        if($user){
+            return response()->json(['data' => new UserResource($user),'message' =>'Create is successfully']);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        // 
-        // return new PostResource($post);
+    public function show($id){
+        $user = User::find($id);
+        return response()->json(['data' => new UserResource($user),'message' =>'Show is successfully']);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UserRequest $request, string|int $id)
-    {
-        //
-        $users = User::find($id);
-        $users->update($request->validated());
-        return new UserResource($users);
-
+    public function update(UserRequest $request, $id){
+        $user = User::find($id);
+        $user->update($request->all());
+        return response()->json(['data' => new UserResource($user),'message' =>'Update is successfully']);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(UserRequest $post, string|int $id)
-    {
-        //
-        $users = User::find($id);
-        $users->delete();
-        return new UserResource($users);
-        // $post = Post::find($id);
-        // $post->delete();
-        // return new PostResource($post);
+    
+    public function destroy($id){
+        $user = User::find($id);
+        $user->delete();
+        return response()->json(['data' => new UserResource($user),'message' =>'Delete is successfully']);
     }
 }
-

@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\BorrowRecord;
 
-
-class UserResource extends JsonResource
+class BookReource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +17,12 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => $this->password,
-            'borrowed_books' => BorrowRecord::where('user_id', $this->id)->get(),
-            'borrowed_books' => BorrowRecord::where('user_id', $this->id)->count(),
+            'title' => $this->title,
+            'author' => $this->author,
+            'published_year'=>$this->published_year,
+            'people' => BorrowRecord::where('book_id', $this->id)->get(),
+            'borrowed_books' => BorrowRecord::where('book_id', $this->id)->count(),
+
         ];
     }
 }
